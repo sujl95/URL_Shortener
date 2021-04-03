@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import me.thewing.url_shortening.domain.Url;
 import me.thewing.url_shortening.dto.IpDto;
 import me.thewing.url_shortening.dto.UrlCreateDto;
+import me.thewing.url_shortening.exception.NotFoundShortUrlException;
 import me.thewing.url_shortening.service.UrlService;
 
 @RestController
@@ -50,6 +52,10 @@ public class UrlShortenerController {
 
 	@GetMapping("/logs/{shortUrl}")
 	public ResponseEntity<Url> getLogs(@PathVariable String shortUrl) {
-		return ResponseEntity.status(HttpStatus.OK).body(urlService.getLogs(shortUrl));
+		Url logs = urlService.getLogs(shortUrl);
+		if (ObjectUtils.isEmpty(logs)) {
+			throw new NotFoundShortUrlException();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(logs);
 	}
 }
