@@ -2,6 +2,9 @@ package me.thewing.url_shortening.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import me.thewing.url_shortening.domain.Url;
+import me.thewing.url_shortening.dto.IpDto;
 import me.thewing.url_shortening.dto.UrlCreateDto;
 import me.thewing.url_shortening.service.UrlService;
 
@@ -26,15 +30,15 @@ public class UrlShortenerController {
 	private final UrlService urlService;
 
 	@PostMapping
-	public ResponseEntity<String> create(@RequestBody UrlCreateDto url) throws URISyntaxException {
-		Url urlInfo = urlService.save(url.getUrl());
+	public ResponseEntity<String> create(@RequestBody UrlCreateDto url, HttpServletRequest request) throws URISyntaxException {
+		Url urlInfo = urlService.save(url.getUrl(), request);
 		URI uri = new URI("/api/url/" + urlInfo.getShortUrl());
 		return ResponseEntity.created(uri).body(urlInfo.getShortUrl());
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> findByShortUrl(@PathVariable String id) throws URISyntaxException {
-		Url shortUrlInfo = urlService.findByShortUrl(id);
+	@GetMapping("/{shortUrl}")
+	public ResponseEntity<?> findByShortUrl(@PathVariable String shortUrl, HttpServletRequest request) throws URISyntaxException {
+		Url shortUrlInfo = urlService.findByShortUrl(shortUrl, request);
 		URI redirectUri = new URI(shortUrlInfo.getOriginUrl());
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.setLocation(redirectUri);
@@ -42,5 +46,10 @@ public class UrlShortenerController {
 				.status(HttpStatus.SEE_OTHER)
 				.headers(httpHeaders)
 				.build();
+	}
+
+	@GetMapping("/logs/{shortUrl}")
+	public ResponseEntity<Url> getLogs(@PathVariable String shortUrl) {
+		return ResponseEntity.status(HttpStatus.OK).body(urlService.getLogs(shortUrl));
 	}
 }

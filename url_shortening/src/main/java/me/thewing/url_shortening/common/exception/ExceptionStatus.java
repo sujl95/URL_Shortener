@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ResponseStatus {
+public enum ExceptionStatus {
 
 	NOT_FOUND_SHORT_URL(4001, "해당 URL이 존재하지 않습니다", NOT_FOUND);
 
