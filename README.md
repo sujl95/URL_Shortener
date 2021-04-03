@@ -51,39 +51,44 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
 1. Run  
 2. Post http://localhost:8080 
 
-
-    json
-
-    {
-	    "url" : "https://www.naver.com"
-    }
+```json
+json
+{
+    "url" : "https://www.naver.com"
+}
+```
+    
 
 3. Get http://localhost:8080/{ShortUrl}
+```
+예시
+http://localhost:8080/UnFYVWl1
+```
 
-
-    예시
-    http://localhost:8080/UnFYVWl1
+    
 
 4. Url 정보 http://localhost:8080/logs/{ShortUrl}
 
+```javascript
+예시    
+http://localhost:8080/logs/UnFYVWl1
 
-    예시    
-    http://localhost:8080/logs/UnFYVWl1
-    
-    응답 예시
+응답 예시
 
-    {
-        "shortUrl": "UnFYVWl1",
-        "originUrl": "https://www.naver.com",
-        "requestCount": 0,
-        "ip": [
-                {
-                    "ip": "0:0:0:0:0:0:0:1",
-                    "accessDate": "2021-04-04T01:20:05.7995907"
-                }
-            ]
-    } 
-    
-    requestCount = 요청 횟수
-    ip : 요청 IP
-    accessDate : 접근 시간
+{
+    "shortUrl": "UnFYVWl1",
+    "originUrl": "https://www.naver.com",
+    "requestCount": 0,
+    "ip": [
+            {
+                "ip": "0:0:0:0:0:0:0:1",
+                "accessDate": "2021-04-04T01:20:05.7995907"
+            }
+        ]
+} 
+
+requestCount = 요청 횟수
+ip : 요청 IP
+accessDate : 접근 시간
+```
+
