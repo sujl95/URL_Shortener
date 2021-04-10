@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import me.thewing.url_shortening.controller.response.UrlResponse;
 import me.thewing.url_shortening.domain.Url;
 import me.thewing.url_shortening.dto.IpDto;
 import me.thewing.url_shortening.dto.UrlCreateDto;
@@ -32,10 +34,11 @@ public class UrlShortenerController {
 	private final UrlService urlService;
 
 	@PostMapping
-	public ResponseEntity<String> create(@RequestBody UrlCreateDto url, HttpServletRequest request) throws URISyntaxException {
+	public ResponseEntity<UrlResponse> create(@RequestBody UrlCreateDto url, HttpServletRequest request) throws URISyntaxException {
 		Url urlInfo = urlService.save(url.getUrl(), request);
-		URI uri = new URI("/api/url/" + urlInfo.getShortUrl());
-		return ResponseEntity.created(uri).body(urlInfo.getShortUrl());
+		URI uri = new URI("thewing.cf/" + urlInfo.getShortUrl());
+		UrlResponse urlResponse = new UrlResponse("thewing.cf/" + urlInfo.getShortUrl());
+		return ResponseEntity.created(uri).body(urlResponse);
 	}
 
 	@GetMapping("/{shortUrl}")
