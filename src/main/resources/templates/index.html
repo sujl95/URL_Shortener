@@ -11,6 +11,11 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("button").click(function() {
+                let inputUrl = $("#urlinput").val();
+                if (!(inputUrl.startsWith("https://") || inputUrl.startsWith("http://"))) {
+                    alert("http:// or https:// 로 시작해야합니다");
+                    return false;
+                }
                 $.ajax({
                     type : 'POST',
                     url : '/',

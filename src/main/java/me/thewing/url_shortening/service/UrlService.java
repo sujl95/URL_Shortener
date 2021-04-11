@@ -68,6 +68,8 @@ public class UrlService {
 	}
 
 	public Url findByShortUrl(String shortUrl, HttpServletRequest request) {
+		System.out.println("shortUrlDump = " + shortUrlDump);
+		System.out.println("shortUrlDump.get(\"shortUrl\") = " + shortUrlDump.get(shortUrl));
 		if (ObjectUtils.isEmpty(shortUrlDump.get(shortUrl))) {
 			log.info("shortUrl -> {}", shortUrl);
 			throw new NotFoundShortUrlException();
