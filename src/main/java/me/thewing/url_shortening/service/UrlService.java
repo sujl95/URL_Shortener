@@ -3,15 +3,13 @@ package me.thewing.url_shortening.service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -26,8 +24,14 @@ import me.thewing.url_shortening.exception.NotFoundShortUrlException;
 @RequiredArgsConstructor
 public class UrlService {
 
-	private final HashMap<String, Url> urlDump;
-	private final HashMap<String, Url> shortUrlDump;
+	private final Map<String, Url> shortUrlDump;
+
+	private final Map<String, Url> urlDump;
+
+	public UrlService() {
+		this.urlDump = new ConcurrentHashMap<>();
+		this.shortUrlDump = new ConcurrentHashMap<>();
+	}
 
 	public Url save(String originUrl, HttpServletRequest request) {
 		if (isExistByOriginUrl(originUrl)) {
@@ -68,8 +72,6 @@ public class UrlService {
 	}
 
 	public Url findByShortUrl(String shortUrl, HttpServletRequest request) {
-		System.out.println("shortUrlDump = " + shortUrlDump);
-		System.out.println("shortUrlDump.get(\"shortUrl\") = " + shortUrlDump.get(shortUrl));
 		if (ObjectUtils.isEmpty(shortUrlDump.get(shortUrl))) {
 			log.info("shortUrl -> {}", shortUrl);
 			throw new NotFoundShortUrlException();
