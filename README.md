@@ -19,6 +19,7 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
 ### 1.1 기획
 
 - Spring Boot , Java를 활용하여 개발
+- 동시성 이슈를 해결하기 위해 HashMap 대신 ConcurrentHashMap 사용
 - 단축 URL 알고리즘을 AutoIncrement ID에 따라 BASE62를 사용하여 진행하려 했으나 아래 예시와 같이 
   8자리가 아닌 규칙적으로 URL이 생성 되었었다.
 - 예시)
