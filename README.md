@@ -14,7 +14,7 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
     - Database 사용은 필수 아님
     - 예 ( http://localhost:8080/UnFYVWl1 )
         - 도메인 사용시 
-            - thewing.cf/UnFYVWl1
+            - thewing.kr/UnFYVWl1
 
 ### 1.1 기획
 
@@ -24,9 +24,9 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
   8자리가 아닌 규칙적으로 URL이 생성 되었었다.
 - 예시)
   - 첫 번째 ShortURL 저장 결과 
-       - thewing.cf/A
+       - thewing.kr/A
   - 두 번째 ShortURL 저장 결과
-    - thewing.cf/B
+    - thewing.kr/B
 - 이렇게 나오기 때문에 8자리 맞추기 위하여 원본 URL을 SHA256으로 해시화 후, Base64로 인코딩 한 뒤 64자리중 앞 8자리를 잘랐다.
   충돌할 시에는 한 자리씩 밀어서 잘랐다. (0, 7),(1, 8),(2, 9)~~~
   
@@ -51,8 +51,8 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
 1. Run  
 2. Post http://localhost:8080 
 
-```json
 json
+```json
 {
     "url" : "https://www.naver.com"
 }
@@ -69,26 +69,24 @@ http://localhost:8080/UnFYVWl1
 
 4. Url 정보 http://localhost:8080/logs/{ShortUrl}
 
-```javascript
+
 예시    
 http://localhost:8080/logs/UnFYVWl1
-
 응답 예시
-
+```json
 {
-    "shortUrl": "UnFYVWl1",
-    "originUrl": "https://www.naver.com",
-    "requestCount": 0,
-    "ip": [
-            {
-                "ip": "0:0:0:0:0:0:0:1",
-                "accessDate": "2021-04-04T01:20:05.7995907"
-            }
-        ]
-} 
-
+  "shortUrl": "UnFYVWl1",
+  "originUrl": "https://www.naver.com",
+  "requestCount": 0,
+  "ip": [
+    {
+      "ip": "0:0:0:0:0:0:0:1",
+      "accessDate": "2021-04-04T01:20:05.7995907"
+    }
+  ]
+}
+```
 requestCount = 요청 횟수
 ip : 요청 IP
 accessDate : 접근 시간
-```
 
