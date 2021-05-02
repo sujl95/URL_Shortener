@@ -28,21 +28,20 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
   - 두 번째 ShortURL 저장 결과
     - thewing.cf/B
 - 이렇게 나오기 때문에 8자리 맞추기 위하여 원본 URL을 SHA256으로 해시화 후, Base64로 인코딩 한 뒤 64자리중 앞 8자리를 잘랐다.
-  충돌할 시에는 한 자리씩 밀어서 잘랐다(1, 9),(2, 10)~~~
+  충돌할 시에는 한 자리씩 밀어서 잘랐다. (0, 7),(1, 8),(2, 9)~~~
   
 
 ## 2.Environment
 
 - Java 11
 - Gradle
-- lombok
 - Spring boot
 
 ## 3.Install
 
 - Repository Clone
 
-    - `$ git clone https://github.com/sujl95/URL_Shortener`
+    - `$ git clone https://github.com/sujl95/URL_Shortener.git`
 
 ## 4.Use    
 
