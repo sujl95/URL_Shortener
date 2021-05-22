@@ -24,9 +24,9 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
   8자리가 아닌 규칙적으로 URL이 생성 되었었다.
 - 예시)
   - 첫 번째 ShortURL 저장 결과 
-       - thewing.kr/A
+       - http://thewing.kr/A
   - 두 번째 ShortURL 저장 결과
-    - thewing.kr/B
+    - http://thewing.kr/B
 - 이렇게 나오기 때문에 8자리 맞추기 위하여 원본 URL을 SHA256으로 해시화 후, Base64로 인코딩 한 뒤 64자리중 앞 8자리를 잘랐다.
   충돌할 시에는 한 자리씩 밀어서 잘랐다. (0, 7),(1, 8),(2, 9)~~~
   

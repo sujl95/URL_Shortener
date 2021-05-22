@@ -39,7 +39,7 @@ class ShortUrlTest {
 				.content(objectMapper.writeValueAsString(urlCreateDto)))
 				.andDo(print())
 				.andExpect(status().isCreated())
-				.andExpect(jsonPath("shortUrl").value("thewing.cf/cXk1OFA4"));
+				.andExpect(jsonPath("shortUrl").value("http://www.thewing.cf/cXk1OFA4"));
 	}
 
 	@Test

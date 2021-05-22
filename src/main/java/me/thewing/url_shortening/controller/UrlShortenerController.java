@@ -40,7 +40,7 @@ public class UrlShortenerController {
 		if (url.getUrl().startsWith("http://") || url.getUrl().startsWith("https://")) {
 			Url urlInfo = urlService.save(url.getUrl(), request);
 			URI uri = new URI("/" + urlInfo.getShortUrl());
-			UrlResponse urlResponse = new UrlResponse("thewing.kr/" + urlInfo.getShortUrl());
+			UrlResponse urlResponse = new UrlResponse("http://www.thewing.kr/" + urlInfo.getShortUrl());
 			return ResponseEntity.created(uri).body(urlResponse);
 		}
 		throw new OriginUrlProtocolException();
